@@ -4,7 +4,7 @@ const SPEED: float = 400.0
 
 const FOLLOW_LERP_SPEED: float = 8.0
 
-var owner_id: int = -1
+var owner_id: int
 
 var is_authority: bool:
 	get:
@@ -36,8 +36,7 @@ func on_server_player_position_updated(peer_id: int, player_position: PlayerPosi
 	if peer_id != owner_id:
 		return
 
-	# global_position = player_position.position
-	global_position = global_position.lerp(player_position.position, FOLLOW_LERP_SPEED * get_process_delta_time())
+	global_position = player_position.position
 
 	PlayerPosition.create(owner_id, global_position).broadcast(NetworkHandler.connection)
 
@@ -46,4 +45,5 @@ func on_client_player_position_updated(player_position: PlayerPosition) -> void:
 	if is_authority || owner_id != player_position.id:
 		return
 
-	global_position = player_position.position
+	# global_position = player_position.position
+	global_position = global_position.lerp(player_position.position, FOLLOW_LERP_SPEED * get_process_delta_time())
