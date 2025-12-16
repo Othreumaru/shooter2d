@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var gun: Gun = $%Gun
+
 const SPEED: float = 400.0
 
 const FOLLOW_LERP_SPEED: float = 8.0
@@ -25,11 +27,15 @@ func _process(_delta: float) -> void:
 	if !is_authority:
 		return
 
+	var gun_angle: float = (get_global_mouse_position() - global_position).angle()
+
+	gun.rotation = gun_angle
+
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED
 
 	move_and_slide()
 
-	PlayerPosition.create(owner_id, global_position).send(NetworkHandler.server_peer)
+	PlayerPosition.create(owner_id, global_position, gun_angle).send(NetworkHandler.server_peer)
 
 
 func on_server_player_position_updated(peer_id: int, player_position: PlayerPosition) -> void:
@@ -37,8 +43,9 @@ func on_server_player_position_updated(peer_id: int, player_position: PlayerPosi
 		return
 
 	global_position = player_position.position
+	gun.pointAt(global_position + Vector2.RIGHT.rotated(player_position.gun_angle))
 
-	PlayerPosition.create(owner_id, global_position).broadcast(NetworkHandler.connection)
+	PlayerPosition.create(owner_id, global_position, player_position.gun_angle).broadcast(NetworkHandler.connection)
 
 
 func on_client_player_position_updated(player_position: PlayerPosition) -> void:
@@ -47,3 +54,4 @@ func on_client_player_position_updated(player_position: PlayerPosition) -> void:
 
 	# global_position = player_position.position
 	global_position = global_position.lerp(player_position.position, FOLLOW_LERP_SPEED * get_process_delta_time())
+	gun.pointAt(global_position + Vector2.RIGHT.rotated(player_position.gun_angle))

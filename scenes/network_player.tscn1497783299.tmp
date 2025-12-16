@@ -18,4 +18,3 @@ shape = SubResource("RectangleShape2D_27uls")
 disabled = true
 
 [node name="Gun" parent="." unique_id=959572762 instance=ExtResource("3_dtrl1")]
-unique_name_in_owner = true
