@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dbkinmhnehcup"]
+
+[ext_resource type="Script" uid="uid://ckapq48dk1m87" path="res://scripts/ui.gd" id="1_nt7q6"]
+
+[node name="UI" type="Control" unique_id=299043315]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nt7q6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=392589019]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HostInput" type="LineEdit" parent="VBoxContainer" unique_id=1636725771]
+unique_name_in_owner = true
+layout_mode = 2
+text = "127.0.0.1:42069"
+
+[node name="StartServerButton" type="Button" parent="VBoxContainer" unique_id=383259501]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start as Server"
+
+[node name="StartClientButton" type="Button" parent="VBoxContainer" unique_id=1132103803]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start as Client
+"

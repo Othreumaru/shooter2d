@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://clkpqbgf12ndj"]
+
+[ext_resource type="PackedScene" uid="uid://dbkinmhnehcup" path="res://scenes/ui.tscn" id="2_7w8s4"]
+[ext_resource type="PackedScene" uid="uid://rlwipd50om6v" path="res://scenes/player_spawner.tscn" id="3_7w8s4"]
+
+[node name="Example" type="Node2D" unique_id=56427347]
+
+[node name="UI" parent="." unique_id=299043315 instance=ExtResource("2_7w8s4")]
+
+[node name="PlayerSpawner" parent="." unique_id=1655951099 instance=ExtResource("3_7w8s4")]
